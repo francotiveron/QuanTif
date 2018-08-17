@@ -1,0 +1,2 @@
+- chart trading report
+- html list for trading report
