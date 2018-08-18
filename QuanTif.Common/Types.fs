@@ -5,9 +5,9 @@ open System
 type PriceBarPart = | Open | High | Low | Close
 type OHLCV = { O:float; H:float; L:float; C:float; V:int }
 type InstrumentMarketDataElement = DateTime * OHLCV
-type InstrumentMarketData = seq<InstrumentMarketDataElement>
+type InstrumentMarketData = InstrumentMarketDataElement seq
 type IndicatorMarketDataElement = DateTime * float
-type IndicatorMarketData = seq<IndicatorMarketDataElement>
+type IndicatorMarketData = IndicatorMarketDataElement seq
 
 type IndicatorDefinitions = 
     | SMA of period:int * price:PriceBarPart

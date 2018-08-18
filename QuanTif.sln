@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CD4225A-D05F-4585-8EE3-2D23E523AC79}"
 	ProjectSection(SolutionItems) = preProject
 		Script1.fsx = Script1.fsx
+		Script2.fsx = Script2.fsx
 		ToDo.txt = ToDo.txt
 	EndProjectSection
 EndProject
