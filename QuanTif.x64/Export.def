@@ -1,0 +1,4 @@
+NAME QuanTif.x64.exe
+EXPORTS  
+   CallPrice
+   CallPriceRep
