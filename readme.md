@@ -1,0 +1,1 @@
+https://francotiveron.wordpress.com/2018/08/18/f-a-trading-strategy-backtester-1/
