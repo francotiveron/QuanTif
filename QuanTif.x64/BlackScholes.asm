@@ -151,14 +151,14 @@ comment @ convert double to int64
 	VFMADD213PD YMM4, YMM13, expC1	;YMM4 = [c0*f+c1]
 	VFMADD213PD YMM4, YMM13, expC2	;YMM4 = [(c0*f+c1)*f+c2 ~ 2^f]
 	VPSLLQ YMM12, YMM12, 52			;position exponent in double IEEE representation (=> * 2^i)
-	VPADDQ YMM11, YMM12, YMM4		;blend in 2^f => 2^f
+	VPADDQ YMM11, YMM12, YMM4		;blend in 2^f => YMM11 = [2^f * 2^i]
 ;YMM11 output = (exp(-rate*timeToMaturity),exp(-rate*timeToMaturity),exp(-0.5*d1^2),exp(-0.5*d2^2))
 
 comment @ complete post exp calculation (nd1, nd2, KexpMinusRT)
 	translate C {
 		double nd1 = normalCDF(d1), nd2 = normalCDF(d2);
 		double MinusKexpMinusRT = -KexpMinusRT(strike, rate, timeToMaturity);
-		double callValue = principal * nd1 + _KexpMinusRT * nd2; //notice dot product
+		double callValue = principal * nd1 + MinusKexpMinusRT * nd2; //notice dot product
 	}
 @
 	XORPD XMM12, XMM12										;reset XMM12
@@ -173,7 +173,7 @@ comment @ complete post exp calculation (nd1, nd2, KexpMinusRT)
 	VPERM2F128 YMM14, YMM11, YMM11, 1						;YMM14 = (_, _, -KexpMinusRT, 0)
 	ADDPD XMM14, XMM0										;XMM14 = (-KexpMinusRT, principal)
 	SHUFPD XMM14, XMM14, 1									;XMM14 = (principal, -KexpMinusRT)
-	VDPPD XMM0, XMM13, XMM14, 031h							;XMM0 = principal * nd1 - _KexpMinusRT * nd2 = RESULT
+	VDPPD XMM0, XMM13, XMM14, 031h							;XMM0 = principal * nd1 - KexpMinusRT * nd2 = RESULT
 	RET
 CallPrice ENDP
 END
