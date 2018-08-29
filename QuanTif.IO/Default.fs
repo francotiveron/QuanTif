@@ -55,9 +55,9 @@ module Default =
 
 
     type Shower =
-        static member ($) (_:Shower, b:MarketData seq seq) = b |> Seq.map marketsToTraces |> Seq.map Chart.Plot |> Chart.ShowAll
-        static member ($) (_:Shower, b:BacktestReport) = reportToTrace b
-        static member ($) (_:Shower, (b:BacktestReport, c:MarketData list)) = seq { yield! marketsToTraces c; yield reportToTrace b } |> Chart.Plot |> Chart.Show
+        static member ($) (_:Shower, m:seq<#seq<MarketData>>) = m |> Seq.map marketsToTraces |> Seq.map Chart.Plot |> Chart.ShowAll
+        static member ($) (_:Shower, r:BacktestReport) = reportToTrace r
+        static member ($) (_:Shower, (r:BacktestReport, m:seq<MarketData>)) = seq { yield! marketsToTraces m; yield reportToTrace r } |> Chart.Plot |> Chart.Show
 
 
     let inline show o = Unchecked.defaultof<Shower> $ o

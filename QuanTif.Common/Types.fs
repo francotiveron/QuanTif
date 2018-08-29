@@ -32,3 +32,4 @@ with
 type MarketData = 
     | Instrument of Instrument
     | Indicator of Indicator
+
