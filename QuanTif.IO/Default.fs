@@ -42,7 +42,8 @@ module Default =
     
     let private reportToTrace report =
         Scatter(
-            x = (report.Operations |> List.map (fun op -> op.Time))
+            name = "Backtest Report"
+            ,x = (report.Operations |> List.map (fun op -> op.Time))
             ,y = (report.Operations |> Seq.map (fun op -> op.Price))
             //,text = (result.operations.Values |> Seq.map (fun e -> e.shares))
             ,mode = "markers"

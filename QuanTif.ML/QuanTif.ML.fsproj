@@ -43,12 +43,22 @@
     <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
   </PropertyGroup>
   <Import Project="$(FSharpTargetsPath)" />
+  <Import Project="..\packages\DiffSharp.0.7.7\build\DiffSharp.targets" Condition="Exists('..\packages\DiffSharp.0.7.7\build\DiffSharp.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\DiffSharp.0.7.7\build\DiffSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\DiffSharp.0.7.7\build\DiffSharp.targets'))" />
+  </Target>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <None Include="Script.fsx" />
     <Content Include="packages.config" />
+    <None Include="Script1.fsx" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Deedle">
+      <HintPath>..\packages\Deedle.2.0.0-beta01\lib\net45\Deedle.dll</HintPath>
+    </Reference>
     <Reference Include="DiffSharp">
       <HintPath>..\packages\DiffSharp.0.7.7\lib\net46\DiffSharp.dll</HintPath>
     </Reference>
@@ -70,13 +80,6 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <Import Project="..\packages\DiffSharp.0.7.7\build\DiffSharp.targets" Condition="Exists('..\packages\DiffSharp.0.7.7\build\DiffSharp.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\DiffSharp.0.7.7\build\DiffSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\DiffSharp.0.7.7\build\DiffSharp.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

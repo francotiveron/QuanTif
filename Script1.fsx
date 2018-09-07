@@ -30,7 +30,12 @@ let strategy1 (st:IBacktestStatus) =
     | _ -> ()
 
 let strategy2 (st:IBacktestStatus) =
-    match st.GetIndicator("SMA20Close(MSFT)", 0), st.GetIndicator("SMA50Close(MSFT)", 0), st.GetIndicator("SMA20Close(MSFT)", -1), st.GetIndicator("SMA50Close(MSFT)", -1) with
+    match 
+          st.GetIndicator("SMA20Close(MSFT)", 0)
+        , st.GetIndicator("SMA50Close(MSFT)", 0)
+        , st.GetIndicator("SMA20Close(MSFT)", -1)
+        , st.GetIndicator("SMA50Close(MSFT)", -1) 
+        with
     | Some sma20, Some sma50, Some sma20p, Some sma50p ->
         let q = match st.GetPosition("MSFT") with | Some _ -> 100 | _ -> 50
         match sma20 - sma50, sma20p - sma50p with
@@ -49,9 +54,11 @@ let strategy2 (st:IBacktestStatus) =
 
 let market1 = [msft; sma10; sma20]
 let market2 = [msft; sma20; sma50]
+let report2 = {Market = market2; Strategy = strategy2} |> Backtest.backtest
+show (report2, market2|> List.toSeq)
 
 let test strategy market = 
     {Market = market; Strategy = strategy} |> Backtest.backtest
 
-[strategy1, market1; strategy2, market2] |> List.map (fun p -> p ||> test, snd p) |> List.map show
+[strategy1, market1; strategy2, market2] |> List.map (fun p -> p ||> test, snd p |> List.toSeq) |> List.map show
 //[strategy1, market1; strategy2, market2] |> List.map ((||>) >> test >> (fun rpt -> show (rpt, market)))

@@ -74,6 +74,7 @@ type BacktestStatus internal (bt:BackTest) =
                 | true, (curShares, chargePrice) ->
                     if sign curShares = sign shares then
                         operations <- {Time = getTime 0; Symbol = symbol; Shares = shares; Price = todayOpen} :: operations
+                        balance <- balance - (float shares) * todayOpen
                         let newShares = curShares + shares
                         let newCharge = ((float curShares) * chargePrice + (float shares) * todayOpen) / (float newShares)
                         portfolio.[symbol] <- (newShares, newCharge)
@@ -90,7 +91,7 @@ type BacktestStatus internal (bt:BackTest) =
                             balance <- balance + (float shares) * chargePrice
                             if newShares <> 0 then portfolio.[symbol] <- (newShares, chargePrice)
                             else portfolio.Remove(symbol) |> ignore
-                 | _ -> 
+                | _ -> 
                     operations <- {Time = getTime 0; Symbol = symbol; Shares = shares; Price = todayOpen} :: operations
                     balance <- balance - (float shares) * todayOpen
                     portfolio.[symbol] <- (shares, todayOpen)
@@ -107,8 +108,10 @@ type BacktestStatus internal (bt:BackTest) =
 
 module Backtest =
     let backtest test = 
-        let rec iterate (status:BacktestStatus) = 
-            status :> IBacktestStatus |> test.Strategy
-            if status.Next() then iterate status else status
+        let status = BacktestStatus(test)
 
-        (BacktestStatus(test) |> iterate).FinalReport
+        let rec iterate() = 
+            status :> IBacktestStatus |> test.Strategy
+            if status.Next() then iterate()
+
+        status.FinalReport
