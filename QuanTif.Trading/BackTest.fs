@@ -114,4 +114,5 @@ module Backtest =
             status :> IBacktestStatus |> test.Strategy
             if status.Next() then iterate()
 
+        iterate()
         status.FinalReport
