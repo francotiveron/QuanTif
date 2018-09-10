@@ -37,6 +37,7 @@ type TradingOperation = {
 type BacktestReport = {
     Operations : TradingOperation list
     Balance : float
+    Portfolio : Dictionary<string, int * float>
 }
 
 type BacktestStatus internal (bt:BackTest) = 
@@ -60,6 +61,7 @@ type BacktestStatus internal (bt:BackTest) =
         { 
         Operations = List.rev operations
         Balance = balance + (portfolio.Values |> Seq.fold (fun y (shares, charge) -> y + (float shares) * charge) 0.)
+        Portfolio = portfolio
         }
     interface IBacktestStatus with
         member this.GetInstrument(symbol, offset) = 

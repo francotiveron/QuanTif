@@ -4,7 +4,7 @@
 #r @"QuanTif.IO\bin\Debug\QuanTif.IO.dll"
 #r @"QuanTif.Feed\bin\Debug\QuanTif.Feed.dll"
 #r @"QuanTif.Trading\bin\Debug\Deedle.dll"
-#r @"QuanTif.Trading\bin\Debug\QuanTif.Trading.dll"
+#r @"C:\Root\Project\QuanTif\QuanTif.Trading\bin\Debug\QuanTif.Trading.dll"
 
 open QuanTif.Common
 open QuanTif.Feed.AlphaVantage
@@ -56,6 +56,8 @@ let market1 = [msft; sma10; sma20]
 let market2 = [msft; sma20; sma50]
 let report2 = {Market = market2; Strategy = strategy2} |> Backtest.backtest
 show (report2, market2|> List.toSeq)
+
+printf "%A" report2.Portfolio
 
 let test strategy market = 
     {Market = market; Strategy = strategy} |> Backtest.backtest
