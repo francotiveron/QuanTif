@@ -86,13 +86,6 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\QuanTif.Common\QuanTif.Common.fsproj">
-      <Name>QuanTif.Common</Name>
-      <Project>{979f07c8-3901-4ed9-a329-b6d97544001c}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

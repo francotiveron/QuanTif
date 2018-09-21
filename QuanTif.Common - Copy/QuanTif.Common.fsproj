@@ -5,14 +5,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>c6700a71-64ef-4640-930f-8afc31708159</ProjectGuid>
+    <ProjectGuid>979f07c8-3901-4ed9-a329-b6d97544001c</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>QuanTif.IO</RootNamespace>
-    <AssemblyName>QuanTif.IO</AssemblyName>
+    <RootNamespace>QunTif.Common</RootNamespace>
+    <AssemblyName>QuanTif.Common</AssemblyName>
     <UseStandardResourceNames>true</UseStandardResourceNames>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>QuanTif.IO</Name>
+    <Name>QuanTif.Common</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,35 +42,36 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Default.fs" />
+    <Compile Include="Types.fs" />
+    <Compile Include="BlackScholes.fs" />
     <None Include="Script.fsx" />
+    <None Include="Script1.fsx" />
+    <None Include="Script2.fsx" />
+    <None Include="Script3.fsx" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
       <HintPath>..\packages\FSharp.Core.4.5.2\lib\net45\FSharp.Core.dll</HintPath>
     </Reference>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>..\packages\MathNet.Numerics.4.5.1\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics.FSharp">
+      <HintPath>..\packages\MathNet.Numerics.FSharp.4.5.1\lib\net45\MathNet.Numerics.FSharp.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="QuanTif.Cpp.CLI">
+      <HintPath>..\x64\Debug\QuanTif.Cpp.CLI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ValueTuple">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="XPlot.Plotly">
-      <HintPath>..\packages\XPlot.Plotly.1.5.0\lib\net45\XPlot.Plotly.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\QuanTif.Trading\QuanTif.Trading.fsproj">
-      <Name>QuanTif.Trading</Name>
-      <Project>{4c38bdba-b508-432f-9e17-3000e65234da}</Project>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -44,7 +44,7 @@ comment @ calculate log(principal{S}/strike{K})
 	VSHUFPD XMM8, XMM0, XMM1, 0			;XMM8 = (K, S)
 	VSHUFPD XMM9, XMM1, XMM0, 0			;XMM9 = (S, K)
 	VDIVPD XMM10, XMM8, XMM9			;XMM10 = (K/S, S/K)
-	MOVAPD XMM11, lnC5					;XMM10 = [c5]
+	MOVAPD XMM11, lnC5					;XMM11 = [c5]
 	VFMADD213PD XMM11, XMM10, lnC4		;XMM11 = [c5*x+c4]
 	VFMADD213PD XMM11, XMM10, lnC3		
 	VFMADD213PD XMM11, XMM10, lnC2		
